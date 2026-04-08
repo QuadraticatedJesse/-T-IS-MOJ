@@ -1,0 +1,35 @@
+{
+  "name": "dockernodetestthingy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon --watch . --ext js,html,css server.js",
+    "lint": "eslint *.js",
+    "lint:fix": "eslint *.js --fix",
+    "test": "echo \"Warning: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuadraticatedJesse/DockerNodeTestThingy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/QuadraticatedJesse/DockerNodeTestThingy/issues"
+  },
+  "homepage": "https://github.com/QuadraticatedJesse/DockerNodeTestThingy#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "handlebars": "^4.7.8",
+    "lint": "^1.1.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.1.0",
+    "nodemon": "^3.1.14"
+  }
+}
