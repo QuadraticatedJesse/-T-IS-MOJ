@@ -30,23 +30,3 @@ jobs:
         run: |
           npm run lint
           npm test
-
-      # Step 5: Login via Azure CLI
-      - name: Login via Azure CLI
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # Step 6: Build and push image to ACR
-      - name: Build and push image to ACR
-        run: |
-          az acr login --name ${{ secrets.ACR_LOGIN_SERVER }}
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/nodejs-app:${{ github.sha }} .
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/nodejs-app:${{ github.sha }}
-
-      # Step 7: Deploy to Azure Web App
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-          images: '${{ secrets.ACR_LOGIN_SERVER }}/nodejs-app:${{ github.sha }}'
