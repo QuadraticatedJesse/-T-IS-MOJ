@@ -75,6 +75,64 @@ footer a:hover {
     text-decoration: none;
 }
 
-img #1 {
- color:#f6e000
+/* Container holding the entire hive structure */
+.honeycomb-container {
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  /* CRITICAL FIX: Align to the start so math works perfectly */
+  align-items: flex-start; 
+  padding-left: 50px; /* Optional: adds breathing room on the left */
 }
+
+/* Base row styling */
+.honeycomb-row {
+  display: flex;
+  /* Pulls the next row up into the zig-zag gaps */
+  margin-bottom: -28px; 
+}
+
+/* CRITICAL FIX: Shifts the middle row right into the open pockets */
+.offset-row {
+  transform: translateX(54px); 
+}
+
+/* Individual Hexagon with proper aspect ratio */
+.hexagon {
+  position: relative;
+  width: 100px;
+  height: 115px; 
+  background-color: #f1c40f; /* Honey gold */
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  margin-right: 6px; /* Horizontal space between hexagons */
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+}
+
+/* Hover effect */
+.hexagon:hover {
+  transform: scale(1.08);
+  z-index: 10; /* Ensures the hovered hex stays on top of its neighbors */
+}
+
+/* Text centering */
+.hexagon span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2c3e50;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 1.2rem;
+}
+
+/* =======================================================
+   Unique ID styles
+   ======================================================= */
+#hex-2 { background-color: #e67e22; }
+#hex-5 { background-color: #e74c3c; }
+#hex-5 span { color: white; }
