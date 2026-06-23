@@ -6,8 +6,10 @@ const handlebars = require('handlebars');
 const app = express();
 const port = 3000;
 
-// Serve static files from /static folder
+// Serve static files from /static folder and serve images
 app.use('/static', express.static(path.join(__dirname, 'static')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 // Redirect bucket for old link /index.html -> /
 app.get('/index.html', (req, res) => {
