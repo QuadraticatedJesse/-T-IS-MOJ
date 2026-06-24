@@ -44,60 +44,36 @@ app.get('/', (req, res) => {
   }
 });
 
-// Route for e1
-app.get('/e1', (req, res) => {
+const allowedPages = ['T', 'M', 'O', 'J'];
+
+const renderAboutPage = (res, page) => {
+  if (!allowedPages.includes(page)) {
+    return res.status(404).send('Page not found');
+  }
+
   try {
-    // Read the template file
-    const templatePath = path.join(__dirname, 'e1.html');
+    const templatePath = path.join(__dirname, 'aboutPages', `${page}.html`);
+    if (!fs.existsSync(templatePath)) {
+      return res.status(404).send('Page not found');
+    }
+
     const templateSource = fs.readFileSync(templatePath, 'utf8');
-    console.log('Template source:', templateSource.substring(0, 100) + '...');
-
-    // Compile the template
     const template = handlebars.compile(templateSource);
-
-    // Data to pass to the template
-    const data = {
-      user: 'test user'
-    };
-
-    // Render the template with data
+    const data = { user: 'test user' };
     const html = template(data);
-    console.log('Rendered HTML length:', html.length);
-
-    // Send the rendered HTML
     res.send(html);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('Internal Server Error: ' + error.message);
   }
+};
+
+app.get('/:page', (req, res) => {
+  renderAboutPage(res, req.params.page);
 });
 
-// Route for e2
-app.get('/e2', (req, res) => {
-  try {
-    // Read the template file
-    const templatePath = path.join(__dirname, 'e2.html');
-    const templateSource = fs.readFileSync(templatePath, 'utf8');
-    console.log('Template source:', templateSource.substring(0, 100) + '...');
-
-    // Compile the template
-    const template = handlebars.compile(templateSource);
-
-    // Data to pass to the template
-    const data = {
-      user: 'test user'
-    };
-
-    // Render the template with data
-    const html = template(data);
-    console.log('Rendered HTML length:', html.length);
-
-    // Send the rendered HTML
-    res.send(html);
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).send('Internal Server Error: ' + error.message);
-  }
+app.get('/aboutPages/:page', (req, res) => {
+  renderAboutPage(res, req.params.page);
 });
 
 app.listen(port, () => {

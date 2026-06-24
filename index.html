@@ -11,17 +11,17 @@
 <body>
     <nav>
         <ul class="items">
-            <li><a href="/">'T</a></li>
-            <li><a href="/e1">IS</a></li>
-            <li><a href="/e2">MOJ</a></li>
+            <li><a href="/aboutPages/T">'T</a></li>
+            <li id="idontcare">IS</li>
+            <li><a href="/aboutPages/M">M</a> <a href="/aboutPages/O">O</a> <a href="/aboutPages/J">J</a></li>
         </ul>
     </nav>
     <div class="honeycomb-container">
         <!-- ROW 0 -->
         <div class="honeycomb-row offset-row">
-            <div class="hexagon" id="hex-invisible"></div>
-            <div class="hexagon" id="hex-invisible"></div>
-            <div class="hexagon" id="hex-invisible"></div>
+            <div class="hexagon invisible" ></div>
+            <div class="hexagon invisible" ></div>
+            <div class="hexagon invisible"></div>
             <div class="hexagon" id="hex-1"><span>1</span></div>
         </div>
 
@@ -35,7 +35,7 @@
 
         <!-- ROW 2 (Offset row) -->
         <div class="honeycomb-row offset-row push-left-2">
-            <div class="hexagon" id="hex-6"><span>6</span></div>
+            <a href=""><div class="hexagon" id="hex-6"><span>6</span></div></a>
             <div class="hexagon" id="hex-7"><span>7</span></div>
             <div class="hexagon" id="hex-8"><span>8</span></div>
             <div class="hexagon" id="hex-9"><span>9</span></div>
@@ -44,23 +44,81 @@
 
         <!-- ROW 3 -->
         <div class="honeycomb-row push-left">
-            <div class="hexagon" id="hex-invisible"></div>
+            <div class="hexagon invisible"></div>
             <div class="hexagon" id="hex-11"><span>11</span></div>
-            <div class="hexagon" id="hex-invisible"></div>
+            <div class="hexagon invisible"></div>
             <div class="hexagon" id="hex-12"><span>12</span></div>
             <div class="hexagon" id="hex-13"><span>13</span></div>
         </div>
 
         <!-- ROW 4 -->
         <div class="honeycomb-row offset-row">
-            <div class="hexagon" id="hex-invisible"></div>
-            <div class="hexagon" id="hex-invisible"></div>
-            <div class="hexagon" id="hex-invisible"></div>
+            <div class="hexagon invisible"></div>
+            <div class="hexagon invisible"></div>
+            <div class="hexagon invisible"></div>
             <div class="hexagon" id="hex-14"><span>14</span></div>
         </div>
     </div>
     <footer>
         <p class="whitetext">&copy; 2026 | <a href="mailto:136658@stanislascollege.net" class="orangetext">Jesse van 't Veer </a> & <a href="mailto:136865@stanislascollege.net" class="orangetext"> Tijn Geurtzen</a></p>
     </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const previewImage = '/images/hexagon.png';
+        const hoverDelayMs = 500;
+        let hoverTimer = null;
+        let activePreview = null;
+        let currentHex = null;
+
+        const cancelPreview = () => {
+          if (hoverTimer) {
+            clearTimeout(hoverTimer);
+            hoverTimer = null;
+          }
+          if (activePreview) {
+            activePreview.remove();
+            activePreview = null;
+          }
+        };
+
+        const showPreview = (hex) => {
+          cancelPreview();
+          const rect = hex.getBoundingClientRect();
+          const preview = document.createElement('div');
+          preview.className = 'hex-preview';
+          preview.style.top = `${window.scrollY + rect.top - 220}px`;
+          preview.style.left = `${window.scrollX + rect.left + rect.width / 2}px`;
+
+          const image = document.createElement('img');
+          image.src = previewImage;
+          image.alt = `Preview image for ${hex.id || 'page'}`;
+          image.className = 'previewFlyinPageImage';
+
+          const label = document.createElement('div');
+          label.className = 'preview-label';
+          label.textContent = hex.dataset.previewTitle || 'Page Preview';
+
+          preview.appendChild(image);
+          preview.appendChild(label);
+          document.body.appendChild(preview);
+          activePreview = preview;
+        };
+
+        document.querySelectorAll('.hexagon').forEach((hex) => {
+          if (hex.classList.contains('invisible')) return;
+          hex.dataset.previewTitle = `Preview for ${hex.id || 'page'}`;
+          hex.addEventListener('mouseenter', () => {
+            currentHex = hex;
+            hoverTimer = window.setTimeout(() => {
+              if (currentHex === hex) showPreview(hex);
+            }, hoverDelayMs);
+          });
+          hex.addEventListener('mouseleave', cancelPreview);
+          hex.addEventListener('mousedown', cancelPreview);
+        });
+
+        window.addEventListener('scroll', cancelPreview);
+      });
+    </script>
 </body>
 </html>

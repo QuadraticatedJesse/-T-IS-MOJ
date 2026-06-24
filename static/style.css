@@ -11,13 +11,15 @@ nav ul{
     width: 100%;
 }
 
-nav ul li  a {    
+nav ul li a {    
     text-decoration: none;
     color:#6b4701;
     margin-left:auto;
     display: inline-block;
 }
-
+#idontcare{
+  color:#6b4701;
+}
 nav ul li a:hover {
     color: 	#985b10;
     font-weight: bold;
@@ -128,6 +130,71 @@ footer a:hover {
   transform: scale(1.15); /* Slightly increased scale to make it pop more */
   z-index: 10; 
 }
+.invisible:hover {
+  transform: scale(1);
+  background-color: #ffffff;
+  cursor: default;
+  z-index: 0;
+}
+.invisible {
+  background-color: #ffffff
+}
+.previewFlyinPageImage {
+  animation: flyin 1.2s ease forwards;
+  opacity: 0;
+  transform: scale(2);
+  filter: blur(4px);
+  max-width: 260px;
+  max-height: 180px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hex-preview {
+  position: absolute;
+  z-index: 20;
+  pointer-events: none;
+  transform: translate(-50%, 0);
+  width: 260px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.hex-preview::before {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  transform-origin: center;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.preview-label {
+  color: #2c3e50;
+  font-weight: 700;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+@keyframes flyin {
+   to { 
+     filter: blur(0);
+     transform: scale(1);
+     opacity: 1;
+   }
+}
 
 /* Text centering */
 .hexagon span {
@@ -170,5 +237,5 @@ footer a:hover {
 #hex-2 { background-color: #e67e22; }
 #hex-5 { background-color: #e74c3c; }
 #hex-5 span { color: white; }
-#hex-invisible { background-color: #ffffff}
+
 
