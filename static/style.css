@@ -1,3 +1,21 @@
+h1 {
+  color: #e6bd2a;
+  text-align: center;
+  font-size: 45px;
+}
+
+h2 {
+  color: #e69e2a;
+  text-align: center;
+  font-size: 20px;
+}
+
+h3 {
+  color: #e6d62a;
+  text-align: center;
+  font-size: 15px;
+}
+
 nav ul{
     display: flex;
     justify-content: space-evenly;
@@ -229,6 +247,65 @@ footer a:hover {
 
 .push-left-2 {
   transform: translateX(-150px); 
+}
+
+hr.separation {
+  border: 0;
+  height: 8px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(155, 103, 24, 0.75), rgba(0, 0, 0, 0));
+  margin-left: 0px; 
+  margin-right: 0px;
+}
+
+div.tijn {
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.tijn .pagecontainer {
+  width: min(100%, 1100px);
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+div.tijn img {
+  display: block;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+div.tijnchess, div.tijntennis {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: nowrap;
+}
+
+div.tijnchess img, div.tijntennis img {
+  display: block;
+  margin: 20px;
+  flex-shrink: 0;
+}
+
+div.tijnchess h3.chess-text, div.tijntennis h3.tennis-text {
+  flex: 1 1 0;
+  max-width: 300px;
+  margin: 0;
+  text-align: left;
+  line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+  div.tijnchess, div.tijntennis {
+    flex-wrap: wrap;
+  }
+
+  div.tijnchess h3.chess-text, div.tijnchess h3.tennis-text {
+    text-align: center;
+  }
 }
 
 /* =======================================================
